@@ -1,6 +1,7 @@
-package com.example.a041_stellarforecast.data.response
+package com.example.a042_icerush.data.response
 
-import com.example.a041_stellarforecast.domain.model.WeatherReportModel
+
+import com.example.a042_icerush.domain.model.WeatherReportModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Calendar
@@ -60,7 +61,7 @@ data class OpenWeatherForecastsResponse(
 
 
             WeatherReportModel(
-                isGoodForStargazing = isClearSky && isNight,
+                isGoodForSnowMaking = isClearSky && isNight,
                 date = calendar,
                 temperatureCelsius = temperatureCelsius,
                 weatherTitle = forecast.weather[0].title,
