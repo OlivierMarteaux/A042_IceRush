@@ -27,8 +27,9 @@ class HomeViewModel @Inject constructor(private val dataRepository: WeatherRepos
 
         private fun getForecastData(){
             // Mt Blanc: 45.83333897014585, 6.865303600397398
-            val longitude = 45.83333897014585
-            val latitude = 6.865303600397398
+            //olonkinbyen:  [70.9221, -8.7187]
+            val latitude = 70.9221
+            val longitude = -8.7187
             dataRepository.fetchForecastData(latitude, longitude)
                 .onEach{ forecastUpdate ->
                     _uiState.update { currentState ->

@@ -43,7 +43,7 @@ class WeatherAdapter(private val onItemClickListener: OnItemClickListener) :
         fun bind(weather: WeatherReportModel) {
             val formattedDate: String = dateFormatter.format(weather.date.time)
             binding.textViewDateTime.text = formattedDate
-            binding.textViewSnowMaking.text = if (weather.isGoodForSnowMaking) "❄️" else "🌧️ or 🌡️"
+            binding.textViewSnowMaking.text = if (weather.isGoodForSnowMaking) "❄️" else "🌧️ ️"
             binding.root.setOnClickListener {
                 onItemClickListener.onItemClick(weather)
             }

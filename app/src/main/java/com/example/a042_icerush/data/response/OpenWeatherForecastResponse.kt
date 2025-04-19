@@ -52,7 +52,7 @@ data class OpenWeatherForecastsResponse(
 
 
             // Check if the temperature is below 0°C
-            val isBelow0Degree = forecast.temperature.temp < 0
+            val isBelow0Degree = forecast.temperature.temp < 273.15
 
 
             // Convert temperature to Celsius
