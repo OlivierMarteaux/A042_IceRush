@@ -16,14 +16,22 @@ import java.util.Locale
  * les ViewHolders nécessaires pour chaque élément de données, ce qui permet un recyclage
  * efficace des vues et une meilleure performance.
  */
-class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherViewHolder>(DiffCallback) {
+class WeatherAdapter(private val onItemClickListener: OnItemClickListener) :
+    ListAdapter<WeatherReportModel, WeatherAdapter.WeatherViewHolder>(DiffCallback) {
+
+    interface OnItemClickListener {
+        fun onItemClick(weather: WeatherReportModel)
+    }
 
     /**
      * Un ViewHolder représente chaque élément individuel dans la liste.
      * Il conserve une référence aux vues à l'intérieur de chaque élément de la liste,
      * ce qui évite de rechercher ces vues à chaque mise à jour.
      */
-    class WeatherViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
+    class WeatherViewHolder(
+        private val binding: ItemWeatherBinding,
+        private val onItemClickListener: OnItemClickListener
+    ) : RecyclerView.ViewHolder(binding.root) {
         private val dateFormatter = SimpleDateFormat("dd/MM - HH:mm", Locale.getDefault())
 
         /**
@@ -36,12 +44,15 @@ class WeatherAdapter() : ListAdapter<WeatherReportModel, WeatherAdapter.WeatherV
             val formattedDate: String = dateFormatter.format(weather.date.time)
             binding.textViewDateTime.text = formattedDate
             binding.textViewSnowMaking.text = if (weather.isGoodForSnowMaking) "❄️" else "🌧️ or 🌡️"
+            binding.root.setOnClickListener {
+                onItemClickListener.onItemClick(weather)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         val itemView = ItemWeatherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return WeatherViewHolder(itemView)
+        return WeatherViewHolder(itemView, onItemClickListener)
     }
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {

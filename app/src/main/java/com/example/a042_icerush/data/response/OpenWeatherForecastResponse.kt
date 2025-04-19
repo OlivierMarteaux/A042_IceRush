@@ -51,9 +51,7 @@ data class OpenWeatherForecastsResponse(
             val isClearSky = forecast.weather.isNotEmpty() && forecast.weather[0].id in 800..804
 
 
-            // Get the hour of the date and determine if it's night
-            val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
-            val isNight = hourOfDay < 6 || hourOfDay >= 18
+            // Check if the temperature is below 0°C
             val isBelow0Degree = forecast.temperature.temp < 0
 
 
