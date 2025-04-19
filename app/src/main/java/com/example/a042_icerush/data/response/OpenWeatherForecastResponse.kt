@@ -48,12 +48,13 @@ data class OpenWeatherForecastsResponse(
 
 
             // Check if the sky is clear (IDs 800 to 802 indicate clear sky conditions)
-            val isClearSky = forecast.weather.isNotEmpty() && forecast.weather[0].id in 800..802
+            val isClearSky = forecast.weather.isNotEmpty() && forecast.weather[0].id in 800..804
 
 
             // Get the hour of the date and determine if it's night
             val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
             val isNight = hourOfDay < 6 || hourOfDay >= 18
+            val isBelow0Degree = forecast.temperature.temp < 0
 
 
             // Convert temperature to Celsius
@@ -61,7 +62,7 @@ data class OpenWeatherForecastsResponse(
 
 
             WeatherReportModel(
-                isGoodForSnowMaking = isClearSky && isNight,
+                isGoodForSnowMaking = isClearSky && isBelow0Degree,
                 date = calendar,
                 temperatureCelsius = temperatureCelsius,
                 weatherTitle = forecast.weather[0].title,
