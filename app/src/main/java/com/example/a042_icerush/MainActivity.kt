@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity(), WeatherAdapter.OnItemClickListener {
                 viewModel.uiState.collect {
                     updateCurrentWeather(it.forecast)
                     binding.progressBar.isVisible = it.isViewLoading
-                    if(it.errorMessage?.isNotBlank() == true){
-                        Snackbar.make(binding.root, it.errorMessage, Snackbar.LENGTH_LONG).show()
+                    if(it.errorMessages?.isNotBlank() == true){
+                        Snackbar.make(binding.root, it.errorMessages, Snackbar.LENGTH_LONG).show()
                     }
                 }
             }
